@@ -1,0 +1,9 @@
+{
+    "window.commandCenter": true,
+    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "window.autoDetectColorScheme": true,
+    "gitlens.ai.model": "gitkraken",
+    "gitlens.ai.gitkraken.model": "gemini:gemini-2.5-flash",
+    "editor.accessibilitySupport": "off"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "plan",
+  "model": "cursor/sonnet-4.6-thinking",
+  "plugin": ["opencode-cursor-proxy@v1.0.3"],
+  "provider": {
+    "cursor": {
+      "name": "Cursor"
+    }
+  }
+}

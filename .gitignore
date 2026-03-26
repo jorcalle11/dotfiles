@@ -1,0 +1,3 @@
+cursor/linux/
+*.lock
+.DS_Store
