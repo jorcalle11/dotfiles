@@ -2,6 +2,12 @@
 
 Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
+## Prerequisites
+
+Install GNU Stow:
+- **macOS**: `brew install stow`
+- **Linux**: `sudo apt install stow` or `sudo yum install stow`
+
 ## Packages
 
 - `zsh` - Zsh configuration
@@ -11,38 +17,68 @@ Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 - `ssh` - SSH config and known hosts
 - `hosts` - System hosts file
 
-## Setup
+## Initial Setup (Fresh Machine)
 
 ```bash
-# Clone the repo
+# 1. Clone the repo
 git clone git@github.com:jorcalle11/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# Stow packages (macOS)
-stow zsh git cursor/macos opencode ssh
+# 2. Install stow (if not already installed)
+# macOS:
+brew install stow
+# Linux:
+sudo apt install stow
 
-# Stow hosts (requires sudo)
+# 3. Stow packages
+# macOS:
+stow zsh git opencode ssh
+stow -d cursor -t ~/Library/Application\ Support/Cursor macos
+
+# Linux:
+stow zsh git opencode ssh
+stow -d cursor -t ~/.config/Cursor linux
+
+# 4. Stow hosts (requires sudo)
 sudo stow hosts -t /
-
-# Stow packages (Linux)
-stow zsh git cursor/linux opencode ssh
 ```
 
 ## Syncing Changes
 
-After modifying any config file:
+After modifying any config file on machine A:
 
 ```bash
 cd ~/dotfiles
 git add .
-git commit -m "update"
+git commit -m "update dotfiles"
 git push
 ```
 
-On another machine:
+On machine B:
 
 ```bash
 cd ~/dotfiles
 git pull
-stow -R .  # restow to refresh symlinks
+stow -R .    # restow all packages to refresh symlinks
 ```
+
+## Troubleshooting
+
+### Conflicts during stow
+If you get "cannot stow over existing target" errors, the original files weren't removed before stowing. Remove them first:
+```bash
+rm ~/.zshrc ~/.gitconfig
+rm -rf ~/.config/opencode ~/.agents
+# For cursor on macOS:
+rm ~/Library/Application\ Support/Cursor/User/settings.json
+# For cursor on Linux:
+rm ~/.config/Cursor/User/settings.json
+```
+
+Then run stow again.
+
+### Check symlinks
+```bash
+ls -la ~/.zshrc ~/.gitconfig ~/.agents ~/.config/opencode/
+```
+Files should point to `dotfiles/...` paths.
