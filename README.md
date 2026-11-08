@@ -16,6 +16,7 @@ Install GNU Stow:
 - `opencode` - OpenCode config and skills
 - `ssh` - SSH config and known hosts
 - `hosts` - System hosts file
+- `iterm2` - iTerm2 profile (macOS, not stowed — see [iTerm2](#iterm2))
 
 ## Initial Setup (Fresh Machine)
 
@@ -41,6 +42,9 @@ stow -d cursor -t ~/.config/Cursor linux
 
 # 4. Stow hosts (requires sudo)
 sudo stow hosts -t /
+
+# 5. iTerm2 profile (macOS) — run from Terminal.app with iTerm2 closed
+./iterm2/iterm.sh install
 ```
 
 ## Syncing Changes
@@ -61,6 +65,33 @@ cd ~/dotfiles
 git pull
 stow -R .    # restow all packages to refresh symlinks
 ```
+
+## iTerm2
+
+`iterm2/profile.json` is the **single** iTerm2 profile ("Auto (Light/Dark)").
+It uses separate colors for light and dark mode, so iTerm2 follows the macOS
+appearance automatically:
+
+- **Light**: same terminal palette as Cursor's *Cursor Light* theme
+  (`theme-cursor/themes/cursor-light-color-theme.json`).
+- **Dark**: iTerm2's built-in *Regular* preset.
+
+It isn't stowed: iTerm2 keeps its profiles inside its preferences plist, which
+it rewrites on quit, so a symlink would not work. Instead, `iterm2/iterm.sh`
+writes the profile into the preferences:
+
+```bash
+# Apply profile.json as the ONLY profile and make it the default.
+# iTerm2 must be closed (run it from Terminal.app).
+./iterm2/iterm.sh install
+
+# Changed something in iTerm2 → Settings → Profiles? Save it back to the repo:
+./iterm2/iterm.sh export
+git diff iterm2/profile.json
+```
+
+After `git pull` on another machine, run `./iterm2/iterm.sh install` again
+(with iTerm2 closed) to pick up profile changes.
 
 ## Troubleshooting
 
