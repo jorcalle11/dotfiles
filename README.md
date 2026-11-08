@@ -6,7 +6,7 @@ Personal macOS setup, managed with [chezmoi](https://www.chezmoi.io/).
 
 ```sh
 brew install chezmoi
-chezmoi init jorcalle11
+chezmoi init --ssh jorcalle11   # SSH so you can push from ~/.local/share/chezmoi
 ```
 
 Then **quit iTerm2**, open **Terminal.app** and run:
