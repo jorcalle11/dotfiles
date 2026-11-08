@@ -1,0 +1,27 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/zsh
+# Point iTerm2 at <repo>/iterm2 so it loads ALL its settings from there and
+# writes every change back automatically (Settings → General → Settings).
+set -euo pipefail
+
+DOMAIN=com.googlecode.iterm2
+FOLDER={{ joinPath .chezmoi.workingTree "iterm2" | quote }}
+
+# iTerm2 reads these at launch and may write its in-memory settings to the
+# folder when it quits, so it must not be running while we switch it over.
+if [[ $(osascript -e "application id \"$DOMAIN\" is running") == true ]]; then
+  echo "iterm2: quit iTerm2 and run 'chezmoi apply' from Terminal.app" >&2
+  exit 1
+fi
+
+defaults write "$DOMAIN" PrefsCustomFolder -string "$FOLDER"
+defaults write "$DOMAIN" LoadPrefsFromCustomFolder -bool true
+# "Save changes: Automatically" (iTermPreferenceSavePrefsModeAlways = 2)
+defaults write "$DOMAIN" NoSyncNeverRemindPrefsChangesLostForFile -bool true
+defaults write "$DOMAIN" NoSyncNeverRemindPrefsChangesLostForFile_selection -int 2
+
+# Leftover from the old Dynamic Profile setup (same GUID → conflicts).
+rm -f "$HOME/Library/Application Support/iTerm2/DynamicProfiles/auto-theme.json"
+
+echo "iterm2: settings now load from and save to $FOLDER"
+{{ end -}}
