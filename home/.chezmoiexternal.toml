@@ -1,0 +1,25 @@
+# Oh My Zsh itself, plus custom plugins/themes. Fetched by `chezmoi apply`.
+[".oh-my-zsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    exact = false
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-z"]
+    type = "archive"
+    url = "https://github.com/agkozak/zsh-z/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/themes/spaceship-prompt"]
+    type = "archive"
+    url = "https://github.com/spaceship-prompt/spaceship-prompt/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
