@@ -22,7 +22,7 @@ chezmoi apply
 ```
 .
 ├── .chezmoiroot              # "home": only home/ is mapped onto ~
-├── Brewfile                  # Homebrew packages (nvm, go), installed by `chezmoi apply`
+├── Brewfile                  # Homebrew packages (nvm, go, ansible), installed by `chezmoi apply`
 ├── home/                     # chezmoi source state → ~
 │   └── .chezmoiscripts/      # setup scripts run by `chezmoi apply`
 │       ├── run_onchange_before_brew-bundle.sh.tmpl
