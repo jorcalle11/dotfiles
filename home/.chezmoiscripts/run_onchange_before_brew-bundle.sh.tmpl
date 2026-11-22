@@ -1,0 +1,17 @@
+{{- /* Re-runs whenever the Brewfile changes. */ -}}
+#!/bin/sh
+# Brewfile hash: {{ include (joinPath .chezmoi.workingTree "Brewfile") | sha256sum }}
+set -eu
+
+if ! command -v brew >/dev/null 2>&1; then
+  for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+    [ -x "$b" ] && eval "$("$b" shellenv)" && break
+  done
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "brew-bundle: Homebrew not found, skipping" >&2
+  exit 0
+fi
+
+brew bundle --file={{ joinPath .chezmoi.workingTree "Brewfile" | quote }}

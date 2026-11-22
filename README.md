@@ -22,8 +22,10 @@ chezmoi apply
 ```
 .
 ├── .chezmoiroot              # "home": only home/ is mapped onto ~
+├── Brewfile                  # Homebrew packages (nvm, go, ansible), installed by `chezmoi apply`
 ├── home/                     # chezmoi source state → ~
 │   └── .chezmoiscripts/      # setup scripts run by `chezmoi apply`
+│       ├── run_onchange_before_brew-bundle.sh.tmpl
 │       └── run_onchange_after_iterm2.sh.tmpl
 └── iterm2/                   # read/written directly by iTerm2 (not copied to ~)
     └── com.googlecode.iterm2.plist
