@@ -1,6 +1,7 @@
 alias ll='ls -lah'
 {{- if eq .chezmoi.os "darwin" }}
 alias o='open .'
+[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ] && alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 {{- else if eq .chezmoi.os "linux" }}
 alias o='xdg-open .'
 {{- end }}
